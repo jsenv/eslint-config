@@ -8,15 +8,13 @@ Create ESLint configuration for any project.
 
 # Presentation
 
-ESLint config file is a single big object.
+ESLint config file consists into a single big object.
 This package helps to split this big object into smaller objects.
-This is possible thanks to a function capable to compose ESLint config objects together to obtain the final object needed to configure ESLint.
+This is possible thanks to a function capable to compose objects together to obtain a final object needed to configure ESLint.
 
 # composeEslintConfig
 
 _composeEslintConfig_ is a function returning an eslint config object being the composition of eslint config objects passed in arguments.
-
-_An .eslintrc.cjs using composeEslintConfig:_
 
 ```js
 const { composeEslintConfig, eslintConfigBase } = require("@jsenv/eslint-config")
