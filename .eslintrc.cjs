@@ -1,7 +1,7 @@
 /**
  *
  * This file uses "@jsenv/eslint-config" to configure ESLint
- * https://github.com/jsenv/jsenv-eslint-config#eslint-config
+ * https://github.com/jsenv/eslint-config#eslint-config
  *
  */
 

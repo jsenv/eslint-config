@@ -1,118 +1,285 @@
-> The documentation below is part of the [GitHub repository template](https://docs.github.com/en/github-ae@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template). Check [.github/README.md](./.github/README.md) to read documentation about the template itself.
+# eslint-config
 
-# Node package title
+Create ESLint configuration for any project.
 
-Node package description.
-
-[![npm package](https://img.shields.io/npm/v/@jsenv/template-node-package.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/template-node-package)
-[![github main](https://github.com/jsenv/jsenv-template-node-package/workflows/main/badge.svg)](https://github.com/jsenv/jsenv-template-node-package/actions?workflow=main)
-[![codecov coverage](https://codecov.io/gh/jsenv/jsenv-template-node-package/branch/main/graph/badge.svg)](https://codecov.io/gh/jsenv/jsenv-template-node-package)
+[![npm package](https://img.shields.io/npm/v/@jsenv/eslint-config.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/eslint-config)
+[![github main](https://github.com/jsenv/eslint-config/workflows/main/badge.svg)](https://github.com/jsenv/eslint-config/actions?workflow=main)
+[![codecov coverage](https://codecov.io/gh/jsenv/eslint-config/branch/master/graph/badge.svg)](https://codecov.io/gh/eslint-config)
 
 # Presentation
 
-```js
-import { getMessage } from "@jsenv/template-node-package"
+Provides ESLint config chunks that can be composed together to obtain the eslint config you need. It is used by jsenv repositories to configure ESLint.
 
-console.log(getMessage())
-```
+# composeEslintConfig
 
-Code above logs `"Hello prod!"`.
+`composeEslintConfig` is a function returning an eslint config object being the composition of eslint config objects passed in arguments.
 
-# Installation
-
-```console
-npm install @jsenv/template-node-package
-```
-
-# Example
-
-<details>
-  <summary>1. Create <code>example.js</code></summary>
+This function helps to create groups while configuring ESLint.
 
 ```js
-import { getMessage } from "@jsenv/template-node-package"
+const { composeEslintConfig, eslintConfigBase } = require("@jsenv/eslint-config")
 
-console.log(getMessage())
+const eslintConfig = composeEslintConfig(
+  eslintConfigBase,
+  // first "group": enable html plugin
+  {
+    plugins: ["html"],
+    settings: {
+      extensions: [".html"],
+    },
+  },
+  // second "group": enable react plugin
+  {
+    plugins: ["react"],
+    settings: {
+      extensions: [".jsx"],
+    },
+  },
+)
+
+module.exports = eslintConfig
 ```
 
-The package also provides files written in commonjs. It means you can also `require` it as shown below.
+## Composable eslint configs
+
+| ESLint config                       | Description                                          | Source                                                                                        |
+| ----------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| eslintConfigBase                    | enable es6 features like top level await             | [src/eslintConfigBase.js](./src/eslintConfigBase.js#L22)                                      |
+| eslintConfigForPrettier             | disable all eslint rules already handled by prettier | [src/eslintConfigForPrettier.js](./src/eslintConfigForPrettier.js#L3)                         |
+| eslintConfigToPreferExplicitGlobals | toto                                                 | [src/eslintConfigToPreferExplicitGlobals.js](./src/eslintConfigToPreferExplicitGlobals.js#L3) |
+
+## eslintConfigForPrettier
+
+**Important**: This object is forcing a list of eslint rules to `"off"` so it must be used after eslint rules are configured. In other words, keep it low, ideally last, in the eslint config composition.
 
 ```js
-const { getMessage } = require("@jsenv/template-node-package")
+const {
+  composeEslintConfig,
+  eslintConfigBase,
+  eslintConfigForPrettier,
+} = require("@jsenv/eslint-config")
 
-console.log(getMessage())
+const eslintConfig = composeEslintConfig(
+  eslintConfigBase,
+  {
+    rules: {
+      semi: ["error", "never"],
+    },
+  },
+  eslintConfigForPrettier, // will disable "semi" rule because prettier is handling semi colon during formatting
+)
+
+module.exports = eslintConfig
+```
+
+## eslintConfigToPreferExplicitGlobals
+
+`eslintConfigToPreferExplicitGlobals` is an eslint config object declared in .
+
+If your code uses a variable named `close`, eslint consider it as defined because there is a `window.close` function. This behaviour prevents you to catch bugs because most of the time you don't mean `window.close`. Using `eslintConfigToPreferExplicitGlobals` means `close` can be reported as not defined and forces to write explicitely `window.close` when that's what you actually want to use.
+
+```js
+const {
+  composeEslintConfig,
+  eslintConfigBase,
+  eslintConfigToPreferExplicitGlobals,
+} = require("@jsenv/eslint-config")
+
+const eslintConfig = composeEslintConfig(eslintConfigBase, eslintConfigToPreferExplicitGlobals)
+
+module.exports = eslintConfig
 ```
 
 </details>
 
 <details>
-  <summary>2. Execute with node</summary>
+  <summary>jsenvEslintRules</summary>
 
-```console
-> node ./example.js
-Hello dev!
+`jsenvEslintRules` is a list of eslint rules declared in [src/jsenvEslintRules.js](./src/jsenvEslintRules.js).
+
+Use `jsenvEslintRules` to reuse the eslint configuration used in jsenv codebase. You can still modify some rules to you convenience as shown below:
+
+```js
+const { composeEslintConfig, jsenvEslintRules } = require("@jsenv/eslint-config")
+
+const eslintConfig = composeEslintConfig(eslintConfigBase, {
+  rules: {
+    ...jsenvEslintRules,
+    semi: ["error", "always"],
+  },
+})
+
+module.exports = eslintConfig
 ```
 
 </details>
-
-</details>
-
-# API
-
-## getMessage
-
-`getMessage` is a function returning a string. The returned string is different depending in [production mode](#production-mode)
 
 <details>
-  <summary>getMessage code example</summary>
+  <summary>jsenvEslintRulesForImport</summary>
+
+`jsenvEslintRulesForImport` is a list of eslint rules declared in [src/jsenvEslintRulesForImport.js](./src/jsenvEslintRulesForImport.js).
+
+It can be used to configure [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import) with jsenv rules.
+
+```console
+npm install --save-dev eslint-plugin-import
+```
 
 ```js
-import { getMessage } from "@jsenv/template-node-package"
+const { composeEslintConfig, jsenvEslintRulesForImport } = require("@jsenv/eslint-config")
 
-const message = getMessage()
-message // "Hello dev!"
+const eslintConfig = composeEslintConfig(eslintConfigBase, {
+  plugins: ["import"],
+  settings: {
+    "import/resolver": {
+      node: {},
+    },
+  },
+  rules: jsenvEslintRulesForImport,
+})
+
+module.exports = eslintConfig
 ```
 
 </details>
-
-## getMessageAsync
-
-`getMessageAsync` is like [getMessage](#getMessage) except it's an async function.
 
 <details>
-  <summary>getMessageAsync code example</summary>
+  <summary>jsenvEslintRulesForReact</summary>
+
+`jsenvEslintRulesForReact` is a list of eslint rules declared in [src/jsenvEslintRulesForReact.js](./src/jsenvEslintRulesForReact.js).
+
+It can be used to configure [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) with jsenv rules.
+
+```console
+npm install --save-dev eslint-plugin-react
+```
 
 ```js
-import { getMessageAsync } from "@jsenv/template-node-package"
+const { composeEslintConfig, jsenvEslintRulesForReact } = require("@jsenv/eslint-config")
 
-const message = await getMessageAsync()
-message // "Hello dev!"
+const eslintConfig = composeEslintConfig(eslintConfigBase, {
+  plugins: ["react"],
+  rules: jsenvEslintRulesForReact,
+})
+
+module.exports = eslintConfig
 ```
 
 </details>
 
-# Production mode
+# Advanced configuration example
 
-The code of this npm package behaves differently when executed with `--conditions=production` as shown below.
+The following code is meant to be put `.eslintrc.cjs` and does the following:
 
-`file.js`
+1. Reuse jsenv configuration for eslint
+2. Disable eslint rules already handled by prettier
+3. Use eslint import plugin with a custom resolver
+4. Use html plugin to enable linting of html files
+5. Consider files as written for browsers by default
+6. Consider a subset of files as written for Node.js
 
-```js
-import { getMessage } from "@jsenv/template-node-package"
+```cjs
+const {
+  composeEslintConfig,
+  eslintConfigBase,
+  eslintConfigForPrettier,
+  jsenvEslintRules,
+  jsenvEslintRulesForImport,
+} = require("@jsenv/eslint-config")
 
-console.log(getMessage())
+const eslintConfig = composeEslintConfig(
+  eslintConfigBase,
+  {
+    rules: jsenvEslintRules,
+  },
+  eslintConfigForPrettier,
+  // import plugin
+  {
+    plugins: ["import"],
+    settings: {
+      "import/resolver": {
+        ["@jsenv/importmap-eslint-resolver"]: {
+          projectDirectoryUrl: __dirname,
+          importMapFileRelativeUrl: "./import-map.importmap",
+        },
+      },
+    },
+    rules: jsenvEslintRulesForImport,
+  },
+  // html plugin
+  {
+    plugins: ["html"],
+    settings: {
+      extensions: [".html"],
+    },
+  },
+  // files are written for browsers by default
+  {
+    env: {
+      browser: true,
+    },
+  },
+  // and some files are written for node as es modules
+  {
+    overrides: [
+      {
+        files: [".github/**/*.js", "script/**/*.js", "jsenv.config.js"],
+        env: {
+          browser: false,
+          node: true,
+        },
+        globals: {
+          __filename: "off",
+          __dirname: "off",
+          require: "off",
+        },
+        settings: {
+          "import/resolver": {
+            [importResolverPath]: {
+              node: true,
+            },
+          },
+        },
+      },
+    ],
+  },
+  // and some are written for node as commonjs modules
+  {
+    overrides: [
+      {
+        files: ["**/*.cjs"],
+        env: {
+          browser: false,
+          node: true,
+        },
+        globals: {
+          __filename: true,
+          __dirname: true,
+          require: true,
+        },
+        settings: {
+          "import/resolver": {
+            [importResolverPath]: {
+              node: true,
+            },
+          },
+        },
+      },
+    ],
+  },
+)
+
+module.exports = eslintConfig
 ```
 
-```console
-> node ./file.js
-Hello dev!
+# More
+
+## Enable ESLint for html files in VsCode
+
+Add
+
+```json
+"eslint.validate": ["javascript", "html"]
 ```
 
-```console
-> node --conditions=production ./file.js
-Hello prod!
-```
-
-# Development
-
-If you are part or want to be part of the developpers of this package, check [development.md](./docs/development.md)
+In `.vscode/settings.json`
