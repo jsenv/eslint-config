@@ -7,7 +7,7 @@
  *
  * Notes:
  * - Point 3. is the reason why rules like "prefer-const" are disabled
- * - I know that point "2." is an other way of phrasing "1."
+ * - It's on purpose that point "2." is an other way of phrasing "1."
  * - There is a few exception to mindset, for example "no-eval" is not really
  *   critical but the rule is still enabled
  *
