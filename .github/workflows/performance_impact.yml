@@ -1,0 +1,27 @@
+name: performance_impact
+
+on: pull_request
+
+jobs:
+  perf_impact:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16.5.0]
+    runs-on: ${{ matrix.os }}
+    name: performance impact
+    env:
+      CI: true
+    steps:
+      - name: Setup git
+        uses: actions/checkout@v2
+      - name: Setup node ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Setup npm
+        run: npm install
+      - name: Report performance impact
+        run: node ./.github/workflows/performance_impact/report_performance_impact.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
