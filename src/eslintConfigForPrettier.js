@@ -1,4 +1,9 @@
-// see https://github.com/prettier/eslint-config-prettier/blob/master/index.js
+/**
+ * This ESLint config object is setting a list of rules to "off" as they will be already handled by prettier.
+ * To ensure rules remains configured to "off", keep eslintConfigForPrettier low, ideally last during eslint composition
+ *
+ * See also https://github.com/prettier/eslint-config-prettier/blob/master/index.js
+ */
 
 export const eslintConfigForPrettier = {
   rules: {

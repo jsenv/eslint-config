@@ -1,3 +1,9 @@
+/*
+ * Contains configuration of ESLint rules when using eslint-plugin-import.
+ *
+ * Check ./jsenvEslintRules.js to see the mindset used  to configure these rules
+ */
+
 export const jsenvEslintRulesForImport = {
   "import/default": ["error"],
   "import/no-unresolved": [

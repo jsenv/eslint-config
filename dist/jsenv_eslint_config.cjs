@@ -80,9 +80,10 @@ const composeTwoEslintConfigs = (firstEslintConfig, secondEslintConfig) => {
 const filenameContainsBackSlashes = __filename.indexOf("\\") > -1;
 const url = filenameContainsBackSlashes ? `file:///${__filename.replace(/\\/g, "/")}` : `file://${__filename}`;
 
-let jsenvEslintConfigDirectoryUrl; // we are being executed from dist/commonjs/main.cjs (certainly node < 13)
+let jsenvEslintConfigDirectoryUrl;
 
 if (typeof require === "function") {
+  // we are being executed from dist/jsenv_eslint_config.cjs
   jsenvEslintConfigDirectoryUrl = util.resolveUrl( // remove dist/
   "../", url);
 } else {
@@ -119,7 +120,12 @@ const eslintConfigBase = {
   }
 };
 
-// see https://github.com/prettier/eslint-config-prettier/blob/master/index.js
+/**
+ * This ESLint config object is setting a list of rules to "off" as they will be already handled by prettier.
+ * To ensure rules remains configured to "off", keep eslintConfigForPrettier low, ideally last during eslint composition
+ *
+ * See also https://github.com/prettier/eslint-config-prettier/blob/master/index.js
+ */
 const eslintConfigForPrettier = {
   rules: {
     "arrow-parens": ["off"],
@@ -163,6 +169,23 @@ const eslintConfigForPrettier = {
     "yield-star-spacing": ["off"]
   }
 };
+/*
+const {
+  composeEslintConfig,
+  eslintConfigBase,
+  eslintConfigForPrettier,
+} = require("@jsenv/eslint-config")
+
+module.exports = composeEslintConfig(
+  eslintConfigBase,
+  {
+    rules: {
+      semi: ["error", "never"],
+    },
+  },
+  eslintConfigForPrettier,
+)
+*/
 
 // some globals are misleading and prevent eslint to catch bugs.
 // it's better to explicitely write window.close and have eslint tell you

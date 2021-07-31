@@ -1,4 +1,19 @@
-// https://eslint.org/docs/rules/
+/*
+ * Contains configuration of many ESLint rules with the following mindset:
+ * 1. ESLint should fail only for important things
+ * 2. ESLint should be silent as long as nothing critical is detected
+ * 3. When code is slighly modified to test/debug something, please ESLint, let me do without
+ *    bothering me with "best practices" and stuff
+ *
+ * Notes:
+ * - Point 3. is the reason why rules like "prefer-const" are disabled
+ * - I know that point "2." is an other way of phrasing "1."
+ * - There is a few exception to mindset, for example "no-eval" is not really
+ *   critical but the rule is still enabled
+ *
+ * See also:
+ * - https://eslint.org/docs/rules/
+ */
 
 export const jsenvEslintRules = {
   "accessor-pairs": ["error"],
@@ -118,12 +133,10 @@ export const jsenvEslintRules = {
   "no-extra-boolean-cast": ["error"],
   "no-extra-label": ["error"],
   "no-extra-semi": ["off"],
-  // Because every one knows eval is a bad idea
-  // so when it's used it's always for a good reason
-  // disabled: true
-  // but in fact it's better to disabled the rule locally using
-  // eslint-disable-next-line no-eval
-  // in that case
+  // At first I wanted to disable "no-eval" because every one knows eval is a bad idea
+  // so when it's used it's always for a good reason.
+  // But on second thought it's better to disable the rule
+  // locally using "//eslint-disable-next-line no-eval" in that case
   "no-eval": ["error"],
   "no-fallthrough": ["error"],
   "no-floating-decimal": ["error"],

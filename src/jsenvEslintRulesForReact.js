@@ -1,3 +1,9 @@
+/*
+ * Contains configuration of ESLint rules when using eslint-plugin-react.
+ *
+ * Check ./jsenvEslintRules.js to see the mindset used  to configure these rules
+ */
+
 export const jsenvEslintRulesForReact = {
   "react/display-name": ["error"],
   "react/jsx-key": ["error"],

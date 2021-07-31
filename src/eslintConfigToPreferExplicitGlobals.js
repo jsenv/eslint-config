@@ -1,8 +1,13 @@
-// some globals are misleading and prevent eslint to catch bugs.
-// it's better to explicitely write window.close and have eslint tell you
-// if you got an undefined variable named `close`
-// https://github.com/eslint/eslint/blob/00d2c5be9a89efd90135c4368a9589f33df3f7ba/conf/environments.js#L1
-// https://github.com/sindresorhus/globals/blob/a1d32c7f76e4d1ac3c8883acf075db11bd4d44f9/globals.json#L1
+/*
+ * ESLint rightfully consider some globals as available but in practice it prevents to catch bugs.
+ * It's better for human devs to configure ESLint so that "close" or "event" are undefined by default.
+ * If one day code needs to use the global variable you can still write window.close or window.event.
+ *
+ * See also
+ * - https://github.com/eslint/eslint/blob/00d2c5be9a89efd90135c4368a9589f33df3f7ba/conf/environments.js#L1
+ * - https://github.com/sindresorhus/globals/blob/a1d32c7f76e4d1ac3c8883acf075db11bd4d44f9/globals.json#L1
+ *
+ */
 
 export const eslintConfigToPreferExplicitGlobals = {
   globals: {

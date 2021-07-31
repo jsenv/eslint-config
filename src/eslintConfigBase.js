@@ -1,7 +1,15 @@
-/* globals require */
+/**
+ * This ESLint config provides many defaults which are common to most projects.
+ * The goal is mostly to make ESLint capable to parse ES features such as
+ * top level await, spread operator, rest params etc
+ * One day all this will be supported by ESLint default parser and this should not be needed anymore.
+ */
+
 import { resolveUrl, urlToFileSystemPath } from "@jsenv/util"
 
 let jsenvEslintConfigDirectoryUrl
+
+// eslint-disable-next-line no-undef
 if (typeof require === "function") {
   // we are being executed from dist/jsenv_eslint_config.cjs
   jsenvEslintConfigDirectoryUrl = resolveUrl(
