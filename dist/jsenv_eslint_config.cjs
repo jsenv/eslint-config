@@ -76,8 +76,6 @@ const composeTwoEslintConfigs = (firstEslintConfig, secondEslintConfig) => {
 
 /**
  * This super basic ESLint configuration to parse latest js
- * Once ESLint 8 is out of beta, this will support top level await
- * see https://github.com/eslint/espree/issues/409#issuecomment-913985230
  */
 const eslintConfigBase = {
   parserOptions: {
