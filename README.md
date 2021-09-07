@@ -177,15 +177,7 @@ const eslintConfig = composeEslintConfig(
 module.exports = eslintConfig
 ```
 
-## HTML linting in VSCode
-
-In `".vscode/settings.json"` file, add
-
-```json
-"eslint.validate": ["javascript", "html"]
-```
-
-## Add react in ESLint configuration
+## React
 
 ```js
 const {
@@ -227,4 +219,12 @@ If you use jsx, configure it as shown below.
 +     extensions: [".jsx"],
 +   },
 + },
+```
+
+## HTML in VSCode
+
+In `".vscode/settings.json"` file, add
+
+```json
+"eslint.validate": ["javascript", "html"]
 ```
