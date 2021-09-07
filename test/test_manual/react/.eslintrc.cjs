@@ -8,7 +8,6 @@ const {
 
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
-  eslintConfigForPrettier,
   {
     rules: jsenvEslintRules,
   },
@@ -17,7 +16,7 @@ const eslintConfig = composeEslintConfig(
     plugins: ["react"],
     settings: {
       react: {
-        version: "detect",
+        version: "17",
       },
     },
     rules: jsenvEslintRulesForReact,
@@ -33,6 +32,7 @@ const eslintConfig = composeEslintConfig(
       extensions: [".jsx"],
     },
   },
+  eslintConfigForPrettier,
 )
 
 module.exports = eslintConfig

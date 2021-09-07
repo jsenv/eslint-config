@@ -1,2 +1,2 @@
 // eslint-disable-next-line no-unused-expressions
-import("./top-level-await.js")
+import("./top_level_await/top_level_await.js")
