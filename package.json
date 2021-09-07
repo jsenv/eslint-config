@@ -47,9 +47,7 @@
     "prepublishOnly": "node ./script/publish/remove_postinstall.mjs && npm run dist",
     "postpublish": "node ./script/publish/restore_postinstall.mjs"
   },
-  "dependencies": {
-    "@jsenv/filesystem": "2.1.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.15.5",
     "@babel/eslint-parser": "7.15.4",

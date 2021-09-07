@@ -75,21 +75,16 @@ const composeTwoEslintConfigs = (firstEslintConfig, secondEslintConfig) => {
 };
 
 /**
- * This ESLint config make ESLint capable to parse ES features such as
- * top level await, spread operator, rest params etc
+ * This super basic ESLint configuration to parse latest js
+ * Once ESLint 8 is out of beta, this will support top level await
+ * see https://github.com/eslint/espree/issues/409#issuecomment-913985230
  */
 const eslintConfigBase = {
   parserOptions: {
-    ecmaVersion: 2021,
-    sourceType: "module" // requireConfigFile: false,
-    // https://babeljs.io/docs/en/options#parseropts
-    // babelOptions: {
-    //   configFile: babelConfigFilePath,
-    // },
-
+    sourceType: "module"
   },
   env: {
-    es6: true
+    es2021: true
   },
   settings: {
     extensions: [".js"]

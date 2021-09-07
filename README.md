@@ -36,7 +36,7 @@ module.exports = eslintConfig
 
 | ESLint config                                                                       | Description                                                     |
 | ----------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| [eslintConfigBase](./src/eslintConfigBase.js)                                       | Enable es6 features like top level await                        |
+| [eslintConfigBase](./src/eslintConfigBase.js)                                       | Enable latest js features                                       |
 | [eslintConfigForPrettier](./src/eslintConfigForPrettier.js)                         | Disable eslint rules already handled by prettier                |
 | [eslintConfigToPreferExplicitGlobals](./src/eslintConfigToPreferExplicitGlobals.js) | Force explicit code to use global variables like `window.event` |
 
@@ -157,6 +157,25 @@ module.exports = eslintConfig
 | [jsenvEslintRulesForReact](./src/jsenvEslintRulesForReact.js)   | jsenv rules for project using react and [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) |
 
 # More
+
+## Top level await
+
+```js
+const { composeEslintConfig, eslintConfigBase } = require("@jsenv/eslint-config")
+
+const eslintConfig = composeEslintConfig(
+  eslintConfigBase,
+  // use "@babel/eslint-parser" until top level await is supported by ESLint default parser
+  {
+    parser: "@babel/eslint-parser",
+    parserOptions: {
+      requireConfigFile: false,
+    },
+  },
+)
+
+module.exports = eslintConfig
+```
 
 ## HTML linting in VSCode
 
