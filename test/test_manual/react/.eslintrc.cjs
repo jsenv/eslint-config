@@ -16,7 +16,7 @@ const eslintConfig = composeEslintConfig(
     plugins: ["react"],
     settings: {
       react: {
-        version: "detect",
+        version: "17",
       },
     },
     rules: jsenvEslintRulesForReact,
