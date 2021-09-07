@@ -8,7 +8,6 @@ const {
 
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
-  eslintConfigForPrettier,
   {
     rules: jsenvEslintRules,
   },
@@ -33,6 +32,7 @@ const eslintConfig = composeEslintConfig(
       extensions: [".jsx"],
     },
   },
+  eslintConfigForPrettier,
 )
 
 module.exports = eslintConfig

@@ -1,12 +1,4 @@
-# eslint-config
-
-Create ESLint configuration for any project.
-
-[![npm package](https://img.shields.io/npm/v/@jsenv/eslint-config.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/eslint-config)
-[![github main](https://github.com/jsenv/eslint-config/workflows/main/badge.svg)](https://github.com/jsenv/eslint-config/actions?workflow=main)
-[![codecov coverage](https://codecov.io/gh/jsenv/eslint-config/branch/master/graph/badge.svg)](https://codecov.io/gh/eslint-config)
-
-# Presentation
+# eslint-config &middot; [![npm package](https://img.shields.io/npm/v/@jsenv/eslint-config.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/eslint-config) [![github main](https://github.com/jsenv/eslint-config/workflows/main/badge.svg)](https://github.com/jsenv/eslint-config/actions?workflow=main) [![codecov coverage](https://codecov.io/gh/jsenv/eslint-config/branch/master/graph/badge.svg)](https://codecov.io/gh/eslint-config)
 
 ESLint config file consists into a single big object.
 This package helps to split this big object into smaller objects.
@@ -166,12 +158,54 @@ module.exports = eslintConfig
 
 # More
 
-## Enable ESLint for html files in VsCode
+## HTML linting in VSCode
 
-Add
+In `".vscode/settings.json"` file, add
 
 ```json
 "eslint.validate": ["javascript", "html"]
 ```
 
-In `.vscode/settings.json`
+## Add react in ESLint configuration
+
+```js
+const {
+  composeEslintConfig,
+  eslintConfigBase,
+  jsenvEslintRulesForReact,
+} = require("@jsenv/eslint-config")
+
+const eslintConfig = composeEslintConfig(
+  eslintConfigBase,
+  // react
+  {
+    plugins: ["react"],
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+    rules: jsenvEslintRulesForReact,
+  },
+)
+
+module.exports = eslintConfig
+```
+
+If you use jsx, configure it as shown below.
+
+```diff
+    rules: jsenvEslintRulesForReact,
+  },
++ // jsx
++ {
++   parserOptions: {
++     ecmaFeatures: {
++       jsx: true,
++     },
++   },
++   settings: {
++     extensions: [".jsx"],
++   },
++ },
+```

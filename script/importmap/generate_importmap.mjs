@@ -10,20 +10,17 @@ to resolve imports.
 
 */
 
-import { getImportMapFromProjectFiles, writeImportMapFile } from "@jsenv/importmap-node-module"
+import { writeImportMapFiles } from "@jsenv/importmap-node-module"
+
 import { projectDirectoryUrl } from "../../jsenv.config.mjs"
 
-await writeImportMapFile(
-  [
-    getImportMapFromProjectFiles({
-      projectDirectoryUrl,
-      runtime: "node",
-      dev: true,
-    }),
-  ],
-  {
-    projectDirectoryUrl,
-    importMapFileRelativeUrl: "./importmap.dev.importmap",
-    jsConfigFile: true,
+await writeImportMapFiles({
+  projectDirectoryUrl,
+  importMapFiles: {
+    "./node_resolution.importmap": {
+      mappingsForNodeResolution: true,
+      mappingsForDevDependencies: true,
+      useForJsConfigJSON: true,
+    },
   },
-)
+})

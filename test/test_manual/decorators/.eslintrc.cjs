@@ -1,3 +1,4 @@
+const { resolve } = require("path")
 const {
   composeEslintConfig,
   eslintConfigForPrettier,
@@ -5,16 +6,21 @@ const {
   eslintConfigBase,
 } = require("@jsenv/eslint-config")
 
+
+const babelConfigFilePath = resolve(__dirname, "./babel.config.cjs")
+
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
   {
-    rules: jsenvEslintRules,
+    parser: "@babel/eslint-parser",
+    parserOptions: {
+      babelOptions: {
+        configFile: babelConfigFilePath,
+      },
+    },
   },
   {
-    plugins: ["html"],
-    settings: {
-      extensions: [".html"],
-    },
+    rules: jsenvEslintRules,
   },
   eslintConfigForPrettier,
 )

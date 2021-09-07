@@ -2,8 +2,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var util = require('@jsenv/util');
-
 const composeTwoObjects = (first, second, composerMap) => {
   const composed = {};
   const firstKeys = Object.keys(first);
@@ -76,41 +74,19 @@ const composeTwoEslintConfigs = (firstEslintConfig, secondEslintConfig) => {
   });
 };
 
-/* global __filename */
-const filenameContainsBackSlashes = __filename.indexOf("\\") > -1;
-const url = filenameContainsBackSlashes ? `file:///${__filename.replace(/\\/g, "/")}` : `file://${__filename}`;
-
-let jsenvEslintConfigDirectoryUrl;
-
-if (typeof require === "function") {
-  // we are being executed from dist/jsenv_eslint_config.cjs
-  jsenvEslintConfigDirectoryUrl = util.resolveUrl( // remove dist/
-  "../", url);
-} else {
-  jsenvEslintConfigDirectoryUrl = util.resolveUrl( // remove src/
-  "../", url);
-}
-
-const babelConfigFileUrl = util.resolveUrl("babel.config.cjs", jsenvEslintConfigDirectoryUrl);
-const babelConfigFilePath = util.urlToFileSystemPath(babelConfigFileUrl);
+/**
+ * This ESLint config make ESLint capable to parse ES features such as
+ * top level await, spread operator, rest params etc
+ */
 const eslintConfigBase = {
-  parser: "@babel/eslint-parser",
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: "module",
-    ecmaFeatures: {
-      spread: true,
-      restParams: true,
-      defaultParams: true,
-      destructuring: true,
-      objectLiteralShorthandMethods: true
-    },
-    requireConfigFile: false,
+    ecmaVersion: 2021,
+    sourceType: "module" // requireConfigFile: false,
     // https://babeljs.io/docs/en/options#parseropts
-    allowAwaitOutsideFunction: true,
-    babelOptions: {
-      configFile: babelConfigFilePath
-    }
+    // babelOptions: {
+    //   configFile: babelConfigFilePath,
+    // },
+
   },
   env: {
     es6: true
@@ -169,29 +145,17 @@ const eslintConfigForPrettier = {
     "yield-star-spacing": ["off"]
   }
 };
+
 /*
-const {
-  composeEslintConfig,
-  eslintConfigBase,
-  eslintConfigForPrettier,
-} = require("@jsenv/eslint-config")
-
-module.exports = composeEslintConfig(
-  eslintConfigBase,
-  {
-    rules: {
-      semi: ["error", "never"],
-    },
-  },
-  eslintConfigForPrettier,
-)
-*/
-
-// some globals are misleading and prevent eslint to catch bugs.
-// it's better to explicitely write window.close and have eslint tell you
-// if you got an undefined variable named `close`
-// https://github.com/eslint/eslint/blob/00d2c5be9a89efd90135c4368a9589f33df3f7ba/conf/environments.js#L1
-// https://github.com/sindresorhus/globals/blob/a1d32c7f76e4d1ac3c8883acf075db11bd4d44f9/globals.json#L1
+ * ESLint rightfully consider some globals as available but in practice it prevents to catch bugs.
+ * It's better for human devs to configure ESLint so that "close" or "event" are undefined by default.
+ * If one day code needs to use the global variable you can still write window.close or window.event.
+ *
+ * See also
+ * - https://github.com/eslint/eslint/blob/00d2c5be9a89efd90135c4368a9589f33df3f7ba/conf/environments.js#L1
+ * - https://github.com/sindresorhus/globals/blob/a1d32c7f76e4d1ac3c8883acf075db11bd4d44f9/globals.json#L1
+ *
+ */
 const eslintConfigToPreferExplicitGlobals = {
   globals: {
     alert: "off",
@@ -230,7 +194,22 @@ const eslintConfigToPreferExplicitGlobals = {
   }
 };
 
-// https://eslint.org/docs/rules/
+/*
+ * Contains configuration of many ESLint rules with the following mindset:
+ * 1. ESLint should fail only for important things
+ * 2. ESLint should be silent as long as nothing critical is detected
+ * 3. When code is slighly modified to test/debug something, please ESLint, let me do without
+ *    bothering me with "best practices" and stuff
+ *
+ * Notes:
+ * - Point 3. is the reason why rules like "prefer-const" are disabled
+ * - It's on purpose that point "2." is an other way of phrasing "1."
+ * - There is a few exception to mindset, for example "no-eval" is not really
+ *   critical but the rule is still enabled
+ *
+ * See also:
+ * - https://eslint.org/docs/rules/
+ */
 const jsenvEslintRules = {
   "accessor-pairs": ["error"],
   "array-bracket-spacing": ["error", "never"],
@@ -335,12 +314,10 @@ const jsenvEslintRules = {
   "no-extra-boolean-cast": ["error"],
   "no-extra-label": ["error"],
   "no-extra-semi": ["off"],
-  // Because every one knows eval is a bad idea
-  // so when it's used it's always for a good reason
-  // disabled: true
-  // but in fact it's better to disabled the rule locally using
-  // eslint-disable-next-line no-eval
-  // in that case
+  // At first I wanted to disable "no-eval" because every one knows eval is a bad idea
+  // so when it's used it's always for a good reason.
+  // But on second thought it's better to disable the rule
+  // locally using "//eslint-disable-next-line no-eval" in that case
   "no-eval": ["error"],
   "no-fallthrough": ["error"],
   "no-floating-decimal": ["error"],
@@ -502,6 +479,11 @@ const jsenvEslintRules = {
   "yoda": ["error"]
 };
 
+/*
+ * Contains configuration of ESLint rules when using eslint-plugin-import.
+ *
+ * Check ./jsenvEslintRules.js to see the mindset used  to configure these rules
+ */
 const jsenvEslintRulesForImport = {
   "import/default": ["error"],
   "import/no-unresolved": ["error", {
@@ -533,6 +515,11 @@ const jsenvEslintRulesForImport = {
   }]
 };
 
+/*
+ * Contains configuration of ESLint rules when using eslint-plugin-react.
+ *
+ * Check ./jsenvEslintRules.js to see the mindset used  to configure these rules
+ */
 const jsenvEslintRulesForReact = {
   "react/display-name": ["error"],
   "react/jsx-key": ["error"],
