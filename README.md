@@ -160,6 +160,15 @@ module.exports = eslintConfig
 
 ## Top level await
 
+It will be supported by default in ESLint 8. Until then you need `"@babel/eslint-parser"` and `"@babel/core"` in your devDependencies,.
+
+```console
+npm install --save-dev @babel/eslint-parser
+npm install --save-dev @babel/core
+```
+
+And configure ESLint parser to `"@babel/eslint-parser"`.
+
 ```js
 const { composeEslintConfig, eslintConfigBase } = require("@jsenv/eslint-config")
 
