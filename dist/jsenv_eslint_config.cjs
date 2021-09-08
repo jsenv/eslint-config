@@ -85,7 +85,7 @@ const eslintConfigBase = {
     es2021: true
   },
   settings: {
-    extensions: [".js"]
+    extensions: [".js", ".mjs"]
   }
 };
 
