@@ -156,11 +156,11 @@ module.exports = eslintConfig
 | [jsenvEslintRulesForImport](./src/jsenvEslintRulesForImport.js) | jsenv rules for [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import)                       |
 | [jsenvEslintRulesForReact](./src/jsenvEslintRulesForReact.js)   | jsenv rules for project using react and [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) |
 
-# More
+# Common use cases
 
 ## Top level await
 
-It will be supported by default in ESLint 8. Until then you need
+It will be supported by default in ESLint 8. Until then you need:
 
 1. `"@babel/eslint-parser"` and `"@babel/core"` in your devDependencies
 2. Configure ESLint parser to `"@babel/eslint-parser"`
@@ -169,6 +169,8 @@ It will be supported by default in ESLint 8. Until then you need
 npm install --save-dev @babel/eslint-parser
 npm install --save-dev @babel/core
 ```
+
+_.eslintrc.cjs:_
 
 ```js
 const { composeEslintConfig, eslintConfigBase } = require("@jsenv/eslint-config")
@@ -213,10 +215,10 @@ const eslintConfig = composeEslintConfig(
 module.exports = eslintConfig
 ```
 
-### JSX
+## JSX
 
-1. Install `@babel/eslint-parser` and `@babel/plugin-syntax-jsx`
-2. Ensure `@babel/plugin-syntax-jsx` is enabled in babel config file
+1. `"@babel/eslint-parser"` and `"@babel/plugin-syntax-jsx"` in your devDependencies
+2. Enable `@babel/plugin-syntax-jsx` in babel config file
 3. Configure ESLint parser to `"@babel/eslint-parser"`
 
 ```console
@@ -224,7 +226,7 @@ npm install --save-dev @babel/eslint-parser
 npm install --save-dev @babel/plugin-syntax-jsx
 ```
 
-_minimal babel.config.cjs file:_
+_babel.config.cjs:_
 
 ```js
 const babelPluginSyntaxJSX = require("@babel/plugin-syntax-jsx")
@@ -242,7 +244,7 @@ module.exports = {
 }
 ```
 
-_in your .eslintrc.cjs:_
+_.eslintrc.cjs:_
 
 ```js
 const {
