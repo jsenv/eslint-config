@@ -1,4 +1,4 @@
-# eslint-config &middot; [![npm package](https://img.shields.io/npm/v/@jsenv/eslint-config.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/eslint-config) [![github main](https://github.com/jsenv/eslint-config/workflows/main/badge.svg)](https://github.com/jsenv/eslint-config/actions?workflow=main) [![codecov coverage](https://codecov.io/gh/jsenv/eslint-config/branch/master/graph/badge.svg)](https://codecov.io/gh/eslint-config)
+# eslint-config [![npm package](https://img.shields.io/npm/v/@jsenv/eslint-config.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/eslint-config) [![github main](https://github.com/jsenv/eslint-config/workflows/main/badge.svg)](https://github.com/jsenv/eslint-config/actions?workflow=main) [![codecov coverage](https://codecov.io/gh/jsenv/eslint-config/branch/master/graph/badge.svg)](https://codecov.io/gh/eslint-config)
 
 ESLint config file consists into a single big object.
 This package helps to split this big object into smaller objects.
@@ -212,22 +212,69 @@ const eslintConfig = composeEslintConfig(
 module.exports = eslintConfig
 ```
 
-If you use jsx, configure it as shown below.
+### JSX
 
-```diff
+1 - Install `@babel/eslint-parser` and `@babel/plugin-syntax-jsx`
+
+```console
+npm install --save-dev @babel/eslint-parser
+npm install --save-dev @babel/syntax-jsx
+```
+
+2 - Create _babel.config.cjs_
+
+```js
+const babelPluginSyntaxJSX = require("@babel/plugin-syntax-jsx")
+
+module.exports = {
+  plugins: [
+    [
+      babelPluginSyntaxJSX,
+      {
+        pragma: "React.createElement",
+        pragmaFrag: "React.Fragment",
+      },
+    ],
+  ],
+}
+```
+
+3 - Configure ESLint to use `@babel/eslint-parser`
+
+```js
+const {
+  composeEslintConfig,
+  eslintConfigBase,
+  jsenvEslintRulesForReact,
+} = require("@jsenv/eslint-config")
+
+const eslintConfig = composeEslintConfig(
+  eslintConfigBase,
+  // react
+  {
+    plugins: ["react"],
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     rules: jsenvEslintRulesForReact,
   },
-+ // jsx
-+ {
-+   parserOptions: {
-+     ecmaFeatures: {
-+       jsx: true,
-+     },
-+   },
-+   settings: {
-+     extensions: [".jsx"],
-+   },
-+ },
+  // jsx
+  {
+    parser: "@babel/eslint-parser",
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
+    },
+    settings: {
+      extensions: [".jsx"],
+    },
+  },
+)
+
+module.exports = eslintConfig
 ```
 
 ## HTML in VSCode

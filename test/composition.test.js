@@ -32,3 +32,6 @@ import { composeEslintConfig } from "@jsenv/eslint-config"
   }
   assert({ actual, expected })
 }
+
+// settings extension
+// parserOptions

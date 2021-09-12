@@ -1,3 +1,4 @@
+const { resolve } = require("path")
 const {
   composeEslintConfig,
   eslintConfigBase,
@@ -6,11 +7,23 @@ const {
   jsenvEslintRulesForReact,
 } = require("@jsenv/eslint-config")
 
+const babelConfigFilePath = resolve(__dirname, "./babel.config.cjs")
+
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
   {
     rules: jsenvEslintRules,
   },
+
+  {
+    parser: "@babel/eslint-parser",
+    parserOptions: {
+      babelOptions: {
+        configFile: babelConfigFilePath,
+      },
+    },
+  },
+
   // react
   {
     plugins: ["react"],
