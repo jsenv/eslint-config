@@ -7,6 +7,7 @@
 export const jsenvEslintRulesForReact = {
   "react/display-name": ["error"],
   "react/jsx-key": ["error"],
+  "react/jsx-filename-extension": ["error", { extensions: [".jsx"] }],
   "react/jsx-no-comment-textnodes": ["error"],
   "react/jsx-no-duplicate-props": ["error"],
   "react/jsx-no-target-blank": ["off"],

@@ -15,15 +15,6 @@ const eslintConfig = composeEslintConfig(
     rules: jsenvEslintRules,
   },
 
-  {
-    parser: "@babel/eslint-parser",
-    parserOptions: {
-      babelOptions: {
-        configFile: babelConfigFilePath,
-      },
-    },
-  },
-
   // react
   {
     plugins: ["react"],
@@ -34,17 +25,23 @@ const eslintConfig = composeEslintConfig(
     },
     rules: jsenvEslintRulesForReact,
   },
+
   // jsx
   {
+    parser: "@babel/eslint-parser",
     parserOptions: {
       ecmaFeatures: {
         jsx: true,
+      },
+      babelOptions: {
+        configFile: babelConfigFilePath,
       },
     },
     settings: {
       extensions: [".jsx"],
     },
   },
+
   eslintConfigForPrettier,
 )
 
