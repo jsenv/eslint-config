@@ -160,14 +160,15 @@ module.exports = eslintConfig
 
 ## Top level await
 
-It will be supported by default in ESLint 8. Until then you need `"@babel/eslint-parser"` and `"@babel/core"` in your devDependencies,.
+It will be supported by default in ESLint 8. Until then you need
+
+1. `"@babel/eslint-parser"` and `"@babel/core"` in your devDependencies
+2. Configure ESLint parser to `"@babel/eslint-parser"`
 
 ```console
 npm install --save-dev @babel/eslint-parser
 npm install --save-dev @babel/core
 ```
-
-And configure ESLint parser to `"@babel/eslint-parser"`.
 
 ```js
 const { composeEslintConfig, eslintConfigBase } = require("@jsenv/eslint-config")
@@ -214,14 +215,16 @@ module.exports = eslintConfig
 
 ### JSX
 
-1 - Install `@babel/eslint-parser` and `@babel/plugin-syntax-jsx`
+1. Install `@babel/eslint-parser` and `@babel/plugin-syntax-jsx`
+2. Ensure `@babel/plugin-syntax-jsx` is enabled in babel config file
+3. Configure ESLint parser to `"@babel/eslint-parser"`
 
 ```console
 npm install --save-dev @babel/eslint-parser
-npm install --save-dev @babel/syntax-jsx
+npm install --save-dev @babel/plugin-syntax-jsx
 ```
 
-2 - Create _babel.config.cjs_
+_minimal babel.config.cjs file:_
 
 ```js
 const babelPluginSyntaxJSX = require("@babel/plugin-syntax-jsx")
@@ -239,7 +242,7 @@ module.exports = {
 }
 ```
 
-3 - Configure ESLint to use `@babel/eslint-parser`
+_in your .eslintrc.cjs:_
 
 ```js
 const {
@@ -250,16 +253,6 @@ const {
 
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
-  // react
-  {
-    plugins: ["react"],
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
-    rules: jsenvEslintRulesForReact,
-  },
   // jsx
   {
     parser: "@babel/eslint-parser",
