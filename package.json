@@ -1,6 +1,6 @@
 {
   "name": "@jsenv/eslint-config",
-  "version": "16.0.3",
+  "version": "16.0.4",
   "description": "Create ESLint configuration for any project",
   "license": "MIT",
   "author": {

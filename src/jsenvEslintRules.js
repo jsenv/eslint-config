@@ -101,7 +101,7 @@ export const jsenvEslintRules = {
     "error",
     {
       newIsCap: true,
-      capIsNew: true,
+      capIsNew: false,
     },
   ],
   "new-parens": ["error"],
@@ -301,7 +301,7 @@ export const jsenvEslintRules = {
   "template-curly-spacing": ["error"],
   "use-isnan": ["error"],
   "valid-jsdoc": [
-    "error",
+    "off",
     {
       requireReturn: false,
       prefer: {
