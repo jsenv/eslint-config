@@ -1,6 +1,6 @@
 {
   "name": "@jsenv/eslint-config",
-  "version": "16.0.5",
+  "version": "16.0.6",
   "description": "Create ESLint configuration for any project",
   "license": "MIT",
   "author": {
@@ -50,22 +50,23 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.15.5",
-    "@babel/eslint-parser": "7.15.4",
+    "@babel/eslint-parser": "7.15.7",
     "@babel/plugin-syntax-decorators": "7.14.5",
     "@babel/plugin-syntax-jsx": "7.14.5",
+    "@babel/preset-env": "7.15.6",
     "@jsenv/assert": "2.3.1",
     "@jsenv/codecov-upload": "3.5.0",
-    "@jsenv/core": "19.6.2",
+    "@jsenv/core": "22.0.1",
     "@jsenv/github-release-package": "1.2.3",
-    "@jsenv/importmap-eslint-resolver": "5.1.0",
+    "@jsenv/importmap-eslint-resolver": "5.1.2",
     "@jsenv/importmap-node-module": "2.2.1",
     "@jsenv/package-publish": "1.6.2",
     "@jsenv/performance-impact": "1.7.0",
     "@jsenv/prettier-check-project": "5.6.1",
     "eslint": "7.32.0",
-    "eslint-plugin-html": "6.1.2",
+    "eslint-plugin-html": "6.2.0",
     "eslint-plugin-import": "2.24.2",
-    "eslint-plugin-react": "7.25.1",
-    "prettier": "2.3.2"
+    "eslint-plugin-react": "7.26.1",
+    "prettier": "2.4.1"
   }
 }

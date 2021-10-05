@@ -276,7 +276,7 @@ const jsenvEslintRules = {
   "max-nested-callbacks": ["warn", 4],
   "new-cap": ["error", {
     newIsCap: true,
-    capIsNew: true
+    capIsNew: false
   }],
   "new-parens": ["error"],
   "no-alert": ["error"],
@@ -460,7 +460,7 @@ const jsenvEslintRules = {
   }],
   "template-curly-spacing": ["error"],
   "use-isnan": ["error"],
-  "valid-jsdoc": ["error", {
+  "valid-jsdoc": ["off", {
     requireReturn: false,
     prefer: {
       returns: "return"
@@ -495,7 +495,12 @@ const jsenvEslintRulesForImport = {
   "import/first": ["warn"],
   "import/no-duplicates": ["warn"],
   "import/newline-after-import": ["warn"],
-  "import/max-dependencies": ["warn", {
+  // "import/max-dependencies" is not super useful
+  // Either you will disable the eslint rule because it's "normal"
+  // to have a lot of dependencies or feel compelled to reduce the number of imports.
+  // It's already visible that a file has many imports and that ideally they should be
+  // less imports, no need for ESLint, let's keep ESLint for more valuable things.
+  "import/max-dependencies": ["off", {
     max: 10
   }],
   "import/no-anonymous-default-export": ["off", {
@@ -516,6 +521,9 @@ const jsenvEslintRulesForImport = {
 const jsenvEslintRulesForReact = {
   "react/display-name": ["error"],
   "react/jsx-key": ["error"],
+  "react/jsx-filename-extension": ["error", {
+    extensions: [".jsx"]
+  }],
   "react/jsx-no-comment-textnodes": ["error"],
   "react/jsx-no-duplicate-props": ["error"],
   "react/jsx-no-target-blank": ["off"],

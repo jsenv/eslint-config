@@ -8,17 +8,19 @@
  *
  */
 
-import { buildProject, getBabelPluginMapForNode } from "@jsenv/core"
-import * as jsenvConfig from "../../jsenv.config.mjs"
+import { buildProject } from "@jsenv/core"
 
+import { projectDirectoryUrl } from "../../jsenv.config.mjs"
 
 await buildProject({
-  ...jsenvConfig,
+  projectDirectoryUrl,
   buildDirectoryRelativeUrl: "./dist/",
   format: "commonjs",
   entryPointMap: {
     "./main.js": "./jsenv_eslint_config.cjs",
   },
-  babelPluginMap: getBabelPluginMapForNode(),
+  runtimeSupport: {
+    node: "14.7.0",
+  },
   buildDirectoryClean: true,
 })
