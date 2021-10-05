@@ -6,7 +6,6 @@ const {
   eslintConfigBase,
 } = require("@jsenv/eslint-config")
 
-
 const babelConfigFilePath = resolve(__dirname, "./babel.config.cjs")
 
 const eslintConfig = composeEslintConfig(

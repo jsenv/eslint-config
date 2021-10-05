@@ -9,7 +9,10 @@ This is possible thanks to a function capable to compose objects together to obt
 _composeEslintConfig_ is a function returning an eslint config object being the composition of eslint config objects passed in arguments.
 
 ```js
-const { composeEslintConfig, eslintConfigBase } = require("@jsenv/eslint-config")
+const {
+  composeEslintConfig,
+  eslintConfigBase,
+} = require("@jsenv/eslint-config")
 
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
@@ -175,7 +178,10 @@ npm install --save-dev @babel/core
 _.eslintrc.cjs:_
 
 ```js
-const { composeEslintConfig, eslintConfigBase } = require("@jsenv/eslint-config")
+const {
+  composeEslintConfig,
+  eslintConfigBase,
+} = require("@jsenv/eslint-config")
 
 const eslintConfig = composeEslintConfig(
   eslintConfigBase,
