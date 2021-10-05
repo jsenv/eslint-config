@@ -23,7 +23,12 @@ export const jsenvEslintRulesForImport = {
   "import/first": ["warn"],
   "import/no-duplicates": ["warn"],
   "import/newline-after-import": ["warn"],
-  "import/max-dependencies": ["warn", { max: 10 }],
+  // "import/max-dependencies" is not super useful
+  // Either you will disable the eslint rule because it's "normal"
+  // to have a lot of dependencies or feel compelled to reduce the number of imports.
+  // It's already visible that a file has many imports and that ideally they should be
+  // less imports, no need for ESLint, let's keep ESLint for more valuable things.
+  "import/max-dependencies": ["off", { max: 10 }],
   "import/no-anonymous-default-export": [
     "off",
     {
