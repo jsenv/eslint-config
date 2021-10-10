@@ -24,7 +24,7 @@ export const jsenvEslintRules = {
   "block-scoped-var": ["error"],
   "brace-style": ["error", "stroustrup"],
   "camelcase": [
-    "error",
+    "off",
     {
       properties: "always",
     },
