@@ -1,6 +1,6 @@
 {
   "name": "@jsenv/eslint-config",
-  "version": "16.0.8",
+  "version": "16.0.9",
   "description": "Create ESLint configuration for any project",
   "license": "MIT",
   "author": {
@@ -19,6 +19,7 @@
     "access": "public"
   },
   "type": "module",
+  "main": "./dist/jsenv_eslint_config.cjs",
   "exports": {
     ".": {
       "import": "./main.js",

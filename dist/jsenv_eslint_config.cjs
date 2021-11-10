@@ -214,7 +214,7 @@ const jsenvEslintRules = {
   }],
   "block-scoped-var": ["error"],
   "brace-style": ["error", "stroustrup"],
-  "camelcase": ["error", {
+  "camelcase": ["off", {
     properties: "always"
   }],
   "comma-dangle": ["error", {
