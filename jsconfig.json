@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@jsenv/eslint-config": ["./src/main.js"],
+      "@jsenv/eslint-config/*": ["./*"]
+    }
+  }
+}
