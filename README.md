@@ -44,7 +44,7 @@ module.exports = eslintConfig
 | ----------------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | [eslintConfigBase](./src/eslintConfigBase.js)                                       | Enable latest js features                                       |
 | [eslintConfigForPrettier](./src/eslintConfigForPrettier.js)                         | Disable eslint rules already handled by prettier                |
-| [eslintConfigToPreferExplicitGlobals](./src/eslintConfigToPreferExplicitGlobals.js) | Force explicit code to use global variables like `window.event` |
+| [eslintConfigToPreferExplicitGlobals](./src/eslintConfigToPreferExplicitGlobals.js) | Force code to use global variables explicitly; like `window.event` |
 
 # Advanced configuration example
 
