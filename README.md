@@ -1,8 +1,11 @@
 # eslint-config [![npm package](https://img.shields.io/npm/v/@jsenv/eslint-config.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/eslint-config)
 
-ESLint config file consists into a single big object.
-This package helps to split this big object into smaller objects.
-This is possible thanks to a function capable to compose objects together to obtain a final object needed to configure ESLint.
+ESLint config file consists into a single **big** object. This package allows to split and subset of ESLint configuration to compose and reuse them.
+
+- :+1: Part of configuration that belongs together can be regrouped
+- :+1: ESLint configuration is easier to read
+
+This is done thanks to a function capable to compose objects into a final ESLint configuration.
 
 # composeEslintConfig
 
