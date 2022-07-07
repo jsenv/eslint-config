@@ -112,6 +112,8 @@ const eslintConfigForPrettier = {
     "key-spacing": ["off"],
     "keyword-spacing": ["off"],
     "max-len": ["off"],
+    "no-confusing-arrow": ["off"],
+    // prettier makes it non confusing
     "no-extra-semi": ["off"],
     "no-floating-decimal": ["off"],
     "no-mixed-spaces-and-tabs": ["off"],
@@ -285,8 +287,10 @@ const jsenvEslintRules = {
   "no-case-declarations": ["error"],
   "no-class-assign": ["error"],
   "no-cond-assign": ["error"],
+  "no-confusing-arrow": ["error"],
   "no-const-assign": ["error"],
   "no-constant-condition": ["error"],
+  "no-constant-binary-expression": ["error"],
   "no-constructor-return": ["error"],
   "no-control-regex": ["error"],
   "no-debugger": ["error"],
@@ -388,6 +392,7 @@ const jsenvEslintRules = {
   "no-unreachable": ["error"],
   "no-unused-expressions": ["error"],
   "no-unused-labels": ["error"],
+  "no-unused-private-class-members": ["error"],
   "no-unused-vars": ["error"],
   // this rule is bad, too much false positive, annoying
   "no-use-before-define": ["off", "nofunc"],

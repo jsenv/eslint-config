@@ -22,6 +22,7 @@ export const eslintConfigForPrettier = {
     "key-spacing": ["off"],
     "keyword-spacing": ["off"],
     "max-len": ["off"],
+    "no-confusing-arrow": ["off"], // prettier makes it non confusing
     "no-extra-semi": ["off"],
     "no-floating-decimal": ["off"],
     "no-mixed-spaces-and-tabs": ["off"],
