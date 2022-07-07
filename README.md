@@ -51,11 +51,11 @@ module.exports = eslintConfig
 The following code is meant to be put into an _.eslintrc.cjs_ file and does the following:
 
 1. Reuse jsenv configuration for ESLint rules
-2. Disable ESLint rules already handled by prettier
-3. Use ESLint import plugin with a custom resolver
-4. Use html plugin to enable linting of html files
-5. Consider files as written for node by default
-6. Consider a subset of files as written for browsers
+2. Use ESLint import plugin with a custom resolver
+3. Consider files as written for node by default
+4. Consider a subset of files as written for browsers
+5. Use html plugin to enable linting of html files
+6. Disable ESLint rules already handled by prettier
 
 ```cjs
 const {
@@ -88,13 +88,6 @@ const eslintConfig = composeEslintConfig(
       "import/extensions": [".js", ".mjs"],
     },
     rules: jsenvEslintRulesForImport,
-  },
-  // html plugin
-  {
-    plugins: ["html"],
-    settings: {
-      extensions: [".html"],
-    },
   },
   // files are written for Node.js by default
   {
@@ -148,6 +141,13 @@ const eslintConfig = composeEslintConfig(
       },
     ],
   },
+  // html plugin
+  {
+    plugins: ["html"],
+    settings: {
+      extensions: [".html"],
+    },
+  },
   eslintConfigToPreferExplicitGlobals,
   // We are using prettier, disable all eslint rules
   // already handled by prettier.
@@ -155,6 +155,12 @@ const eslintConfig = composeEslintConfig(
 )
 
 module.exports = eslintConfig
+```
+
+The above configuration uses [@jsenv/eslint-import-resolver](https://github.com/jsenv/jsenv-core/tree/main/packages/eslint-import-resolver) to resolve import so it needs to be installed.
+
+```console
+npm install --save-dev @jsenv/eslint-import-resolver
 ```
 
 ## Composable ESLint rules
