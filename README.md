@@ -1,11 +1,11 @@
 # eslint-config [![npm package](https://img.shields.io/npm/v/@jsenv/eslint-config.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/eslint-config)
 
-ESLint config file consists into a single **big** object. This package allows to split and subset of ESLint configuration to compose and reuse them.
+ESLint config file consists into a single **big** object. This package allows to split this object to compose and reuse them.
 
 - :+1: Part of configuration that belongs together can be regrouped
 - :+1: ESLint configuration is easier to read
 
-This is done thanks to a function capable to compose objects into a final ESLint configuration.
+This is achieved by a function capable to compose subsets of ESLint configuration.
 
 # composeEslintConfig
 
@@ -54,16 +54,17 @@ The following code is meant to be put into an _.eslintrc.cjs_ file and does the 
 2. Disable ESLint rules already handled by prettier
 3. Use ESLint import plugin with a custom resolver
 4. Use html plugin to enable linting of html files
-5. Consider files as written for browsers by default
-6. Consider a subset of files as written for Node.js
+5. Consider files as written for node by default
+6. Consider a subset of files as written for browsers
 
 ```cjs
 const {
   composeEslintConfig,
   eslintConfigBase,
-  eslintConfigForPrettier,
   jsenvEslintRules,
   jsenvEslintRulesForImport,
+  eslintConfigToPreferExplicitGlobals,
+  eslintConfigForPrettier,
 } = require("@jsenv/eslint-config")
 
 const eslintConfig = composeEslintConfig(
@@ -74,17 +75,17 @@ const eslintConfig = composeEslintConfig(
       "operator-assignment": ["error", "always"], // override jsenv rules
     },
   },
-  eslintConfigForPrettier,
   // import plugin
   {
     plugins: ["import"],
     settings: {
       "import/resolver": {
-        ["@jsenv/importmap-eslint-resolver"]: {
-          projectDirectoryUrl: __dirname,
-          importMapFileRelativeUrl: "./import-map.importmap",
+        "@jsenv/eslint-import-resolver": {
+          rootDirectoryUrl: __dirname,
+          packageConditions: ["node", "import"],
         },
       },
+      "import/extensions": [".js", ".mjs"],
     },
     rules: jsenvEslintRulesForImport,
   },
@@ -95,62 +96,62 @@ const eslintConfig = composeEslintConfig(
       extensions: [".html"],
     },
   },
-  // files are written for browsers by default
+  // files are written for Node.js by default
   {
     env: {
-      browser: true,
+      node: true,
     },
   },
-  // some files are written for node in ESM
+  // package is "type": "module" so:
+  // 1. disable commonjs globals by default
+  // 2. Re-enable commonjs into *.cjs files
   {
-    overrides: [
-      {
-        files: ["**/*.mjs"],
-        env: {
-          browser: false,
-          node: true,
-        },
-        globals: {
-          __filename: "off",
-          __dirname: "off",
-          require: "off",
-          exports: "off",
-        },
-        settings: {
-          "import/resolver": {
-            [importResolverPath]: {
-              node: true,
-            },
-          },
-        },
-      },
-    ],
-  },
-  // some files are written for node in CommonJS
-  {
+    globals: {
+      __filename: "off",
+      __dirname: "off",
+      require: "off",
+      exports: "off",
+    },
     overrides: [
       {
         files: ["**/*.cjs"],
         env: {
-          browser: false,
-          node: true,
+          commonjs: true,
         },
+        // inside *.cjs files. restore commonJS "globals"
         globals: {
           __filename: true,
           __dirname: true,
           require: true,
           exports: true,
         },
+      },
+    ],
+  },
+  // several files are written for browsers, not Node.js
+  {
+    overrides: [
+      {
+        files: ["**/**/*.html", "**/src/**/*.js"],
+        env: {
+          browser: true,
+          node: false,
+        },
         settings: {
           "import/resolver": {
-            [importResolverPath]: {
-              node: true,
+            "@jsenv/eslint-import-resolver": {
+              rootDirectoryUrl: __dirname,
+              packageConditions: ["browser", "import"],
             },
           },
         },
       },
     ],
   },
+  eslintConfigToPreferExplicitGlobals,
+  // We are using prettier, disable all eslint rules
+  // already handled by prettier.
+  eslintConfigForPrettier,
 )
 
 module.exports = eslintConfig
