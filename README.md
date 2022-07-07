@@ -1,4 +1,4 @@
-# eslint-config [![npm package](https://img.shields.io/npm/v/@jsenv/eslint-config.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/eslint-config) [![github main](https://github.com/jsenv/eslint-config/workflows/main/badge.svg)](https://github.com/jsenv/eslint-config/actions?workflow=main) [![codecov coverage](https://codecov.io/gh/jsenv/eslint-config/branch/master/graph/badge.svg)](https://codecov.io/gh/eslint-config)
+# eslint-config [![npm package](https://img.shields.io/npm/v/@jsenv/eslint-config.svg?logo=npm&label=package)](https://www.npmjs.com/package/@jsenv/eslint-config)
 
 ESLint config file consists into a single big object.
 This package helps to split this big object into smaller objects.

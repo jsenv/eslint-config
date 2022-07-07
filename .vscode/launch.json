@@ -11,8 +11,7 @@
         "--inspect",
         "--experimental-json-modules",
         "--experimental-import-meta-resolve",
-        "--trace-warnings",
-        "--conditions=development"
+        "--trace-warnings"
         // "--preserve-symlinks",
         // "--preserve-symlinks-main"
       ],
