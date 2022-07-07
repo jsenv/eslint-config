@@ -553,5 +553,3 @@ exports.eslintConfigToPreferExplicitGlobals = eslintConfigToPreferExplicitGlobal
 exports.jsenvEslintRules = jsenvEslintRules;
 exports.jsenvEslintRulesForImport = jsenvEslintRulesForImport;
 exports.jsenvEslintRulesForReact = jsenvEslintRulesForReact;
-
-//# sourceMappingURL=jsenv_eslint_config.cjs.map

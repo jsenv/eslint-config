@@ -46,7 +46,7 @@
     "@babel/plugin-syntax-decorators": "7.18.6",
     "@babel/plugin-syntax-jsx": "7.18.6",
     "@jsenv/assert": "2.6.0",
-    "@jsenv/core": "27.0.0",
+    "@jsenv/core": "27.0.2",
     "@jsenv/eslint-import-resolver": "0.3.0",
     "@jsenv/github-release-package": "1.5.0",
     "@jsenv/package-publish": "1.10.0",

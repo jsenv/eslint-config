@@ -15,7 +15,7 @@ import { rootDirectoryUrl } from "../jsenv.config.mjs"
 await build({
   rootDirectoryUrl,
   buildDirectoryUrl: new URL("./dist/", rootDirectoryUrl),
-  entryPointMap: {
+  entryPoints: {
     "./src/main.js": "jsenv_eslint_config.cjs",
   },
   runtimeCompat: {
@@ -25,4 +25,5 @@ await build({
   minification: false,
   versioning: false,
   assetManifest: false,
+  sourcemaps: true,
 })
