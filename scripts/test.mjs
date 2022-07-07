@@ -11,7 +11,7 @@ await executeTestPlan({
   testPlan: {
     "tests/**/*.test.mjs": {
       node: {
-        launch: nodeProcess,
+        runtime: nodeProcess,
       },
     },
   },
