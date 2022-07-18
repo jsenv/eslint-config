@@ -1,6 +1,6 @@
 {
   "name": "@jsenv/eslint-config",
-  "version": "16.2.0",
+  "version": "16.2.1",
   "description": "Create ESLint configuration for any project",
   "license": "MIT",
   "author": {
@@ -37,7 +37,8 @@
     "test": "node ./scripts/test.mjs",
     "test:coverage": "npm run test -- --coverage",
     "build": "node ./scripts/build.mjs",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {},
   "devDependencies": {

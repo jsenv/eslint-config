@@ -327,7 +327,8 @@ const jsenvEslintRules = {
   "no-irregular-whitespace": ["error"],
   "no-iterator": ["error"],
   "no-label-var": ["error"],
-  "no-labels": ["error"],
+  "no-labels": ["off"],
+  // https://gist.github.com/getify/706e5e10822a298375da40f9cc1fa295
   "no-lone-blocks": ["error"],
   "no-lonely-if": ["error"],
   "no-loop-func": ["error"],
@@ -391,7 +392,8 @@ const jsenvEslintRules = {
   "no-unneeded-ternary": ["error"],
   "no-unreachable": ["error"],
   "no-unused-expressions": ["error"],
-  "no-unused-labels": ["error"],
+  "no-unused-labels": ["off"],
+  // https://gist.github.com/getify/706e5e10822a298375da40f9cc1fa295
   "no-unused-private-class-members": ["error"],
   "no-unused-vars": ["error"],
   // this rule is bad, too much false positive, annoying
